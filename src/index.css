@@ -1,1 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 @import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-palm: #1f6f5b;
+  --color-palm-light: #3b8b75;
+  --color-palm-dark: #164d40;
+
+  --color-coral: #f25c54;
+  --color-coral-light: #f88079;
+  --color-coral-dark: #d8453f;
+
+  --color-amber: #ffa552;
+  --color-amber-light: #ffc68a;
+  --color-amber-dark: #e68c3d;
+
+  --color-teal: #3aafa9;
+  --color-teal-light: #5cbcb4;
+  --color-teal-dark: #289992;
+
+  /* Neutral & UI Colors */
+  --color-sand: #f4e9dc;
+  --color-sand-light: #fbf7f1;
+  --color-sand-dark: #d7cabb;
+
+  --color-cocoa: #403d39;
+  --color-cocoa-light: #5a5854;
+  --color-cocoa-dark: #2c2a27;
+
+  /* Font families */
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-nunito: "Nunito", sans-serif;
+}
