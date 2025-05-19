@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import logo from '../assets/logo01.svg';
 
-export default function Navbar() {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -49,3 +49,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+export default Navbar;
