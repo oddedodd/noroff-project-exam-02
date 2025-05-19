@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import VenueList from "../components/VenueList";
-function Home() {
+
+function Home({ searchTerm }) {
   return (
-    <>
-      <VenueList />
-    </>
+    <div>
+      <VenueList searchTerm={searchTerm} />
+    </div>
   );
 }
 
