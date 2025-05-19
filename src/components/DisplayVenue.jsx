@@ -3,7 +3,7 @@ function DisplayVenue({ venue }) {
     return (
       <div className="bg-sand-light rounded-lg overflow-hidden">
         <img
-          src={venue.media && venue.media.length > 0 ? venue.media[0].url : 'https://via.placeholder.com/400x300'}
+          src={venue.media && venue.media.length > 0 ? venue.media[0].url : 'https://placehold.co/400x300'}
           alt={venue.name}
           className="w-full h-48 object-cover"
         />
