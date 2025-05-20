@@ -14,26 +14,26 @@ function LoginForm({ onSubmit }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
       <div>
-        <label htmlFor="email" className="block font-medium text-gray-700">Email address</label>
+        <label htmlFor="email" className="block text-lg font-[nunito] font-medium text-cocoa-dark">Email address</label>
         <input
           type="email"
           id="email"
-          className="w-full border border-gray-400 rounded px-3 py-2 mt-1"
+          className="w-full border border-cocoa-dark rounded px-3 py-2 mt-1"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <p className="text-xs text-gray-500 italic mt-1">
+        <p className="text-xs text-center text-cocoa-light font-[nunito] italic mt-2">
           Must be a valid <code>@stud.noroff.no</code> email address
         </p>
       </div>
 
       <div>
-        <label htmlFor="password" className="block font-medium text-gray-700">Password</label>
+        <label htmlFor="password" className="block text-lg font-[nunito] font-medium text-cocoa-dark">Password</label>
         <input
           type="password"
           id="password"
-          className="w-full border border-gray-400 rounded px-3 py-2 mt-1"
+          className="w-full border border-cocoa-dark rounded px-3 py-2 mt-1"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -42,7 +42,7 @@ function LoginForm({ onSubmit }) {
 
       <button
         type="submit"
-        className="w-full bg-[#f98e3f] hover:bg-[#ea7b2c] text-white font-bold py-2 rounded mt-4"
+        className="w-full bg-amber-dark hover:bg-amber text-sand font-[nunito] uppercase font-light py-2 rounded mt-4 hover:cursor-pointer"
       >
         SIGN IN
       </button>
