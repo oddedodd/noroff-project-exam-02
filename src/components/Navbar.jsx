@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo01.svg';
 
 function Navbar() {
@@ -10,21 +11,23 @@ function Navbar() {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center">
-          <img
-            src={logo}
-            alt="Holidaze Logo"
-            className="h-12 mr-2"
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Holidaze Logo"
+              className="h-12 mr-2"
+            />
+          </Link>
         </div>
 
         {/* Desktop nav */}
         <div className="hidden md:flex space-x-6 items-center font-[nunito] text-lg ">
-          <a href="#" className="text-cocoa hover:text-coral uppercase">Home</a>
+          <Link to="/" className="text-cocoa hover:text-coral uppercase">Home</Link>
           <a href="#" className="text-cocoa hover:text-coral uppercase">Venues</a>
           <a href="#" className="text-cocoa hover:text-coral uppercase">Contact</a>
-          <button className="bg-coral hover:bg-coral-light hover:cursor-pointer text-sand-light uppercase px-6 py-2 rounded-full font-medium">
+          <Link to="/login" className="bg-coral hover:bg-coral-light hover:cursor-pointer text-sand-light uppercase px-6 py-2 rounded-full font-medium">
             Sign In
-          </button>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -41,9 +44,9 @@ function Navbar() {
           <a href="#" className="block text-cocoa hover:text-coral uppercase text-center">Home</a>
           <a href="#" className="block text-cocoa hover:text-coral uppercase text-center">Venues</a>
           <a href="#" className="block text-cocoa hover:text-coral uppercase text-center">Contact</a>
-          <button className="w-full bg-coral hover:bg-coral-dark hover:cursor-pointer text-sand-light uppercase px-6 py-2 rounded-full font-medium">
+          <Link to="/login" className="w-full bg-coral hover:bg-coral-dark hover:cursor-pointer text-sand-light uppercase px-6 py-2 rounded-full font-medium">
             Sign In
-          </button>
+          </Link>
         </div>
       )}
     </nav>
