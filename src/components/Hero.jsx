@@ -28,9 +28,9 @@ function Hero({ onSearch }) {
 
   return (
     <section
-      className="w-screen bg-cover bg-center text-white h-[50vh]"
+      className="w-screen bg-cover bg-center text-white h-[60vh]"
       style={{
-        backgroundImage: "url('/splash01.jpg')", // Replace with your actual image path
+        backgroundImage: "url('/splash02.jpg')", // Replace with your actual image path
       }}
     >
       <div className="bg-black/50 w-full h-full py-24 flex flex-col items-center justify-center text-center px-4">
