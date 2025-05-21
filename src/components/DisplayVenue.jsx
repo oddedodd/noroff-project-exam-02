@@ -89,7 +89,12 @@ function DisplayVenue() {
       <div className="min-h-screen max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div className="md:col-span-2 space-y-6">
           <VenueDescription text={venue.description} />
-          <VenueGallery images={venue.media?.map(m => m.url) || []} />
+          <VenueGallery 
+            images={venue.media?.map(image => ({
+              url: image.url,
+              alt: image.alt || `Image of ${venue.name}` // Fallback alt text if none provided
+            })) || []} 
+          />
         </div>
         <VenueSidebar 
           amenities={amenities}
