@@ -1,11 +1,11 @@
-import { useAuth } from '../hooks/useAuth';
-import Logout from '../components/Logout';
+import { useRequireAuth } from '../hooks/useRequireAuth';
+import { useLogout } from '../hooks/useLogout';
 
 function Profile() {
-    const { user, isLoading } = useAuth();
+    const user = useRequireAuth();
+    const logout = useLogout();
 
-    if (isLoading) {
-        // Show nothing while checking authentication
+    if (!user) {
         return null;
     }
 
@@ -31,7 +31,12 @@ function Profile() {
                     )}
 
                     <div className="mt-6">
-                        <Logout />
+                        <button
+                            onClick={logout}
+                            className="bg-coral hover:bg-coral-dark text-sand font-[nunito] uppercase font-light py-2 px-4 rounded hover:cursor-pointer"
+                        >
+                            Logout
+                        </button>
                     </div>
                 </div>
             </div>
