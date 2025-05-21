@@ -1,12 +1,25 @@
-// pages/Login.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
+import { useAuthState } from '../hooks/useAuthState';
 
+/**
+ * Login component that provides user authentication functionality
+ * @component
+ * @returns {JSX.Element} The rendered Login page
+ */
 function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { updateAuthState } = useAuthState();
 
+  /**
+   * Handles the login form submission
+   * @async
+   * @param {Object} credentials - The login credentials
+   * @param {string} credentials.email - User's email address
+   * @param {string} credentials.password - User's password
+   */
   async function handleLoginSubmit({ email, password }) {
     try {
       const response = await fetch('https://v2.api.noroff.dev/auth/login', {
@@ -26,6 +39,9 @@ function Login() {
       // Store the access token and user data
       localStorage.setItem('accessToken', data.data.accessToken);
       localStorage.setItem('user', JSON.stringify(data.data));
+
+      // Update global auth state
+      updateAuthState(data.data);
 
       // Redirect to profile page
       navigate('/profile');
