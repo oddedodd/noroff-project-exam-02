@@ -1,6 +1,6 @@
 // src/components/VenueList.jsx
 import { useEffect, useState } from 'react';
-import DisplayVenue from './DisplayVenue';
+import DisplayVenueCard from './DisplayVenueCard';
 
 function VenueList({ searchTerm }) {
   const [venues, setVenues] = useState([]);
@@ -55,7 +55,7 @@ function VenueList({ searchTerm }) {
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {displayedVenues.map((venue) => (
-                <DisplayVenue key={venue.id} venue={venue} />
+                <DisplayVenueCard key={venue.id} venue={venue} />
               ))}
             </div>
             {hasMoreVenues && (
