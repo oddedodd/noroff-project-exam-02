@@ -44,8 +44,6 @@ function DisplayVenue() {
         }
 
         const json = await response.json();
-        console.log('API Response:', json.data);
-        console.log('Bookings data:', json.data.bookings);
         setVenue(json.data);
       } catch (error) {
         setError(error.message);

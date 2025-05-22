@@ -8,8 +8,6 @@ function VenueList({ searchTerm }) {
   const [loadingMore, setLoadingMore] = useState(false);
   const [displayCount, setDisplayCount] = useState(9);
 
-  console.log('VenueList - Received searchTerm:', searchTerm);
-
   useEffect(() => {
     async function fetchVenues() {
       try {
@@ -18,10 +16,8 @@ function VenueList({ searchTerm }) {
           ? `https://v2.api.noroff.dev/holidaze/venues/search?q=${encodeURIComponent(searchTerm)}`
           : 'https://v2.api.noroff.dev/holidaze/venues/';
         
-        console.log('VenueList - Fetching from URL:', url);
         const response = await fetch(url);
         const json = await response.json();
-        console.log('VenueList - Received venues:', json.data.length);
         setVenues(json.data);
         setDisplayCount(9); // Reset display count when search changes
       } catch (error) {

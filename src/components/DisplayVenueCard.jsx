@@ -1,5 +1,12 @@
-import { Link } from 'react-router-dom';
+  import { Link } from 'react-router-dom';
 
+/**
+ * DisplayVenueCard component for rendering a venue card with image, name, location, price, and a link to the venue details page
+ * @param {Object} venue - The venue object containing venue details
+ * @param {string} venue.id - The unique identifier for the venue
+ * @param {string} venue.name - The name of the venue
+ * @param {string} venue.location.city - The city where the venue is located
+ */
 function DisplayVenueCard({ venue }) {
     return (
       <div className="bg-sand-light rounded-lg overflow-hidden">
@@ -18,4 +25,4 @@ function DisplayVenueCard({ venue }) {
     );
   }
 
-export default DisplayVenueCard; 
+export default DisplayVenueCard;

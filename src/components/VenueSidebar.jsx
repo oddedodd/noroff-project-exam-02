@@ -31,7 +31,7 @@ function VenueSidebar({ amenities, price, maxGuests, rating, venueId, bookings }
   });
 
   return (
-    <aside className="bg-white p-6 rounded shadow space-y-6 self-start">
+    <aside className="bg-white p-6 rounded space-y-6 self-start">
       <div>
         <h4 className="text-lg text-cocoa-dark font-semibold mb-2 font-[dm_sans]">Check availability</h4>
         <div className="p-2">
@@ -57,7 +57,7 @@ function VenueSidebar({ amenities, price, maxGuests, rating, venueId, bookings }
       </div>
 
       <Link 
-        to={`/bookvenue/${venueId}`}
+        to={`/venue/${venueId}/book`}
         className="block w-full bg-[#ef665b] hover:bg-[#e4534a] text-white py-2 font-semibold rounded text-center"
       >
         BOOK NOW
