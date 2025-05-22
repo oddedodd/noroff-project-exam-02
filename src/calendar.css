@@ -1,0 +1,22 @@
+/* FullCalendar custom styling */
+.fc {
+    @apply text-gray-800;
+  }
+  
+  .fc .fc-toolbar-title {
+    @apply text-xl font-semibold text-center text-cocoa-dark;
+  }
+  
+  .fc .fc-button {
+    @apply bg-coral text-sand-light text-sm px-3 py-1 rounded hover:bg-coral-dark uppercase;
+    border: none !important;
+  }
+  
+  .fc .fc-button-primary:not(:disabled).fc-button-active,
+  .fc .fc-button-primary:not(:disabled):active {
+    @apply bg-amber-dark;
+  }
+  
+  .fc .fc-button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }

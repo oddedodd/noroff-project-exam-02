@@ -6,6 +6,15 @@ import VenueGallery from './VenueGallery';
 import VenueSidebar from './VenueSidebar';
 import { Wifi, ParkingCircle, Utensils, Dog } from 'lucide-react';
 
+/**
+ * Component for displaying detailed information about a venue
+ * @component
+ * @returns {JSX.Element|null} The rendered venue display component or null if no venue data
+ * 
+ * @example
+ * // Usage within a route:
+ * <Route path="/venue/:id" element={<DisplayVenue />} />
+ */
 function DisplayVenue() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,16 +29,23 @@ function DisplayVenue() {
       return;
     }
 
+    /**
+     * Fetches venue data from the API
+     * @async
+     * @function fetchVenue
+     */
     async function fetchVenue() {
       try {
         setLoading(true);
-        const response = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${id}`);
+        const response = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${id}?_bookings=true`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch venue');
         }
 
         const json = await response.json();
+        console.log('API Response:', json.data);
+        console.log('Bookings data:', json.data.bookings);
         setVenue(json.data);
       } catch (error) {
         setError(error.message);
@@ -44,8 +60,8 @@ function DisplayVenue() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fef4e8] flex items-center justify-center">
-        <div className="text-xl">Loading venue details...</div>
+      <div className="min-h-screen bg-sand-light flex items-center justify-center">
+        <div className="text-xl">Loading venue...</div>
       </div>
     );
   }
@@ -79,7 +95,7 @@ function DisplayVenue() {
   ].filter(amenity => amenity.enabled);
 
   return (
-    <div className="bg-[#fef4e8] text-gray-800">
+    <div className="bg-sand-light text-cocoa-dark">
       <VenueHero 
         name={venue.name} 
         location={`${venue.location.city}, ${venue.location.country}`} 
@@ -101,6 +117,8 @@ function DisplayVenue() {
           price={venue.price}
           maxGuests={venue.maxGuests}
           rating={venue.rating}
+          venueId={venue.id}
+          bookings={venue.bookings || []}
         />
       </div>
     </div>
