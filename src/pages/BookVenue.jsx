@@ -23,7 +23,14 @@ function BookVenue() {
     totalPrice: 0
   });
 
+  /**
+   * Fetches venue data when component mounts or venue ID changes
+   */
   useEffect(() => {
+    /**
+     * Fetches venue data from the API
+     * @async
+     */
     async function fetchVenue() {
       try {
         setLoading(true);
@@ -48,17 +55,60 @@ function BookVenue() {
     }
   }, [id]);
 
+  /**
+   * Handles submission of booking data
+   * @async
+   * @param {Object} bookingData - The booking data to submit
+   * @param {string} bookingData.dateFrom - Check-in date
+   * @param {string} bookingData.dateTo - Check-out date
+   * @param {number} bookingData.guests - Number of guests
+   */
   const handleBookingSubmit = async (bookingData) => {
     try {
-      // TODO: Implement booking submission
-      console.log('Booking data:', bookingData);
-      // After successful booking, navigate to confirmation or profile page
-      // navigate('/profile');
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      const response = await fetch('https://v2.api.noroff.dev/holidaze/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
+        },
+        body: JSON.stringify({
+          dateFrom: bookingData.dateFrom,
+          dateTo: bookingData.dateTo,
+          guests: bookingData.guests,
+          venueId: venue.id
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.errors?.[0]?.message || 'Failed to create booking');
+      }
+
+      const data = await response.json();
+      // Navigate to profile page after successful booking
+      navigate('/profile');
     } catch (error) {
       console.error('Error submitting booking:', error);
+      setError(error.message);
     }
   };
 
+  /**
+   * Handles changes to the booking form data
+   * @param {Object} newBookingData - Updated booking data
+   * @param {string} newBookingData.checkIn - Check-in date
+   * @param {string} newBookingData.checkOut - Check-out date
+   * @param {number} newBookingData.guests - Number of guests
+   * @param {number} newBookingData.nights - Number of nights
+   * @param {number} newBookingData.totalPrice - Total price of booking
+   */
   const handleFormChange = (newBookingData) => {
     setBookingData(newBookingData);
   };
