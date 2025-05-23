@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import VenueHero from "../components/VenueHero";
 import BookingForm from "../components/BookingForm";
 import BookingSidebar from "../components/BookingSidebar";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 /**
  * Booking page component for venue reservations
@@ -10,18 +11,28 @@ import BookingSidebar from "../components/BookingSidebar";
  * @returns {JSX.Element} Booking page component
  */
 function BookVenue() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [venue, setVenue] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [bookingData, setBookingData] = useState({
-    checkIn: '',
-    checkOut: '',
-    guests: 1,
-    nights: 0,
-    totalPrice: 0
-  });
+    /**
+     * Checks if the user is authenticated
+     * @returns {Object|null} User object if authenticated, redirect to login page otherwise
+     */
+    const user = useRequireAuth();
+
+    if (!user) {
+        return null;
+    }
+    
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [venue, setVenue] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [bookingData, setBookingData] = useState({
+        checkIn: '',
+        checkOut: '',
+        guests: 1,
+        nights: 0,
+        totalPrice: 0
+    });
 
   /**
    * Fetches venue data when component mounts or venue ID changes
