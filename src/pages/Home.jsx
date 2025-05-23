@@ -6,11 +6,8 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (term) => {
-    console.log('Home - handleSearch called with:', term);
     setSearchTerm(term);
   };
-
-  console.log('Home - Current searchTerm:', searchTerm);
 
   return (
     <div>

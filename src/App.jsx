@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import About from "./pages/about";
 import Home from "./pages/home";
 import Login from "./pages/Login";
 import RegisterUser from "./pages/RegisterUser";
 import Profile from "./pages/Profile";
-import Navbar from "./components/Navbar";
 import Venue from "./pages/Venue";
+import BookVenue from "./pages/BookVenue";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/venue" element={<Venue />} />
         <Route path="/venue/:id" element={<Venue />} />
+        <Route path="/venue/:id/book" element={<BookVenue />} />
       </Routes>
     </div>
   );

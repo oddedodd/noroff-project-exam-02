@@ -7,22 +7,19 @@ function Hero({ onSearch }) {
   // Debounce search term
   useEffect(() => {
     const timer = setTimeout(() => {
-      console.log('Hero - Setting debounced term:', searchTerm);
       setDebouncedSearchTerm(searchTerm);
-    }, 300); // 300ms delay
+    }, 300); // 300ms delay before searching to prevent spamming the API
 
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
   // Trigger search when debounced term changes
   useEffect(() => {
-    console.log('Hero - Calling onSearch with:', debouncedSearchTerm);
     onSearch(debouncedSearchTerm);
   }, [debouncedSearchTerm, onSearch]);
 
   const handleSearch = (e) => {
     const value = e.target.value;
-    console.log('Hero - Input changed:', value);
     setSearchTerm(value);
   };
 
