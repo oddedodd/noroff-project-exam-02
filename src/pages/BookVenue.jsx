@@ -126,15 +126,15 @@ function BookVenue() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fef4e8] flex items-center justify-center">
-        <div className="text-xl">Loading venue details...</div>
+      <div className="min-h-screen bg-sand-light flex items-center justify-center">
+        <div className="text-xl text-coral-dark">Loading venue details...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#fef4e8] flex items-center justify-center">
+      <div className="min-h-screen bg-sand-light flex items-center justify-center">
         <div className="text-center">
           <div className="text-xl text-coral-dark mb-4">{error}</div>
           <button 
@@ -153,7 +153,7 @@ function BookVenue() {
   }
 
   return (
-    <div className="bg-[#fef4e8]">
+    <div className="bg-sand-light">
       <VenueHero 
         name={venue.name}
         location={`${venue.location.city}, ${venue.location.country}`}
