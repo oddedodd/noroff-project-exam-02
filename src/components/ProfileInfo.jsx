@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { UserCog } from 'lucide-react';
+import EditProfile from './EditProfile';
+import { useAuthState } from '../hooks/useAuthState';
 
 /**
  * Displays a user's profile information including banner, avatar, name, bio and checks if the user is a venue manager
@@ -15,9 +18,16 @@ import { UserCog } from 'lucide-react';
  * @returns {JSX.Element|null} The rendered profile info component or null if no user provided
  */
 function ProfileInfo({ user }) {
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const { updateAuthState } = useAuthState();
+
     if (!user) {
         return null;
     }
+
+    const handleProfileUpdate = (updatedUser) => {
+        updateAuthState(updatedUser);
+    };
 
     return (
         <div className="w-full max-w-5xl mt-10 bg-sand-light p-4 rounded-lg mx-auto">
@@ -29,7 +39,8 @@ function ProfileInfo({ user }) {
                     className="w-full h-60 object-cover"
                 />
                 <button
-                    className="absolute top-4 right-4 bg-sand-light hover:bg-amber text-sm px-3 py-1.5 rounded-lg flex items-center gap-1 font-[nunito] text-cocoa-dark hover:text-sand-light  hover:cursor-pointer"
+                    onClick={() => setIsEditModalOpen(true)}
+                    className="absolute top-4 right-4 bg-sand-light hover:bg-amber text-sm px-3 py-1.5 rounded-lg flex items-center gap-1 font-[nunito] text-cocoa-dark hover:text-sand-light hover:cursor-pointer"
                 >
                     Edit profile <UserCog size={16} />
                 </button>
@@ -60,6 +71,15 @@ function ProfileInfo({ user }) {
                     )}
                 </div>
             </div>
+
+            {/* Edit Profile Modal */}
+            {isEditModalOpen && (
+                <EditProfile
+                    user={user}
+                    onClose={() => setIsEditModalOpen(false)}
+                    onUpdate={handleProfileUpdate}
+                />
+            )}
         </div>
     );
 }
