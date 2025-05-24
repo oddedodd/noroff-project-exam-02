@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useRequireAuth } from '../hooks/useRequireAuth';
 
 /**
  * Component for displaying a user's bookings/reservations
  * @component
  * @returns {JSX.Element} ViewMyBookings component
  */
-function ViewMyBookings() {
+function ViewMyBookings({ user }) {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const user = useRequireAuth();
 
     useEffect(() => {
         /**
@@ -48,7 +46,7 @@ function ViewMyBookings() {
 
     if (loading) {
         return (
-            <section className="bg-sand px-4 py-10">
+            <section className="bg-sand px-4 pt-10">
                 <div className="max-w-5xl mx-auto bg-sand-light p-4 rounded-lg">
                     <h2 className="text-xl text-cocoa-dark font-[dm_sans] font-bold uppercase mb-6">My reservations</h2>
                     <div className="text-center text-cocoa font-[nunito]">Loading bookings...</div>
