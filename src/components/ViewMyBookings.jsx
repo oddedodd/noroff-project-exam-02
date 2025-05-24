@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useRequireAuth } from '../hooks/useRequireAuth';
 
+/**
+ * Component for displaying a user's bookings/reservations
+ * @component
+ * @returns {JSX.Element} ViewMyBookings component
+ */
 function ViewMyBookings() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -8,6 +13,10 @@ function ViewMyBookings() {
     const user = useRequireAuth();
 
     useEffect(() => {
+        /**
+         * Fetches user's bookings from the API
+         * @async
+         */
         async function fetchBookings() {
             if (!user) return;
 

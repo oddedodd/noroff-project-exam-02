@@ -43,12 +43,20 @@ function ProfileInfo({ user }) {
                     className="w-36 h-36 rounded-full border-4 border-sand-light object-cover"
                 />
                 <div className="flex flex-col gap-1 mt-8">
-                    <h2 className="text-lg font-[dm_sans] capitalize font-semibold text-cocoa-dark">{user.name}</h2>
+                    <h2 className="text-lg font-[dm_sans] capitalize font-semibold text-cocoa-dark mt-6">{user.name}</h2>
                     <p className="text-sm text-cocoa-dark">{user.bio || "No bio provided"}</p>
                     {user.venueManager && (
-                        <span className="inline-block mt-2 px-2.5 py-1.5 bg-amber-100 text-amber-dark text-sm font-[nunito] font-medium rounded-lg">
-                            Venue Manager
-                        </span>
+                        <div className="flex gap-2 mt-2">
+                            <span className="inline-block px-2.5 py-1.5 bg-amber-100 text-amber-dark text-sm font-[nunito] font-medium rounded-lg">
+                                Venue Manager
+                            </span>
+                            <a 
+                                href="/venue/add"
+                                className="inline-block px-2.5 py-1.5 bg-coral hover:bg-coral-dark text-sand text-sm font-[nunito] font-medium rounded-lg"
+                            >
+                                Add Venue
+                            </a>
+                        </div>
                     )}
                 </div>
             </div>
