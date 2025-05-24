@@ -1,5 +1,7 @@
 import { useRequireAuth } from '../hooks/useRequireAuth';
 import { useLogout } from '../hooks/useLogout';
+import ProfileInfo from '../components/ProfileInfo';
+import ViewMyBookings from '../components/ViewMyBookings';
 
 function Profile() {
     const user = useRequireAuth();
@@ -10,7 +12,9 @@ function Profile() {
     }
 
     return (
-        <div className="min-h-screen bg-sand flex flex-col items-center justify-center px-4">
+        <div className="min-h-screen bg-sand p-4 rounded-lgmx-auto">
+            <ProfileInfo user={user} />
+            <ViewMyBookings />
             <div className="mb-8 text-center">
                 <img src="/logo02.svg" alt="Holidaze logo" className="h-36 mx-auto mb-2" />
             </div>
