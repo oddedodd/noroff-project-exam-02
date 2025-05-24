@@ -12,7 +12,7 @@ function Profile() {
     }
 
     return (
-        <div className="min-h-screen bg-sand p-4 rounded-lgmx-auto">
+        <div className="min-h-screen bg-sand p-4 rounded-lg mx-auto">
             <ProfileInfo user={user} />
             <ViewMyBookings />
             <div className="mb-8 text-center">

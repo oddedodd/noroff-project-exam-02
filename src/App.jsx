@@ -7,6 +7,7 @@ import RegisterUser from "./pages/RegisterUser";
 import Profile from "./pages/Profile";
 import Venue from "./pages/Venue";
 import BookVenue from "./pages/BookVenue";
+import AddVenue from "./pages/AddVenue";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/venue" element={<Venue />} />
         <Route path="/venue/:id" element={<Venue />} />
         <Route path="/venue/:id/book" element={<BookVenue />} />
+        <Route path="/venue/add" element={<AddVenue />} />
       </Routes>
     </div>
   );
