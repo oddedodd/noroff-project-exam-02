@@ -30,7 +30,6 @@ function GetVenueBookings({ venueId }) {
                 return;
             }
 
-            console.log('Fetching venue with bookings for venueId:', venueId);
             const url = `https://v2.api.noroff.dev/holidaze/venues/${venueId}?_bookings=true`;
             console.log('API URL:', url);
 
@@ -46,17 +45,13 @@ function GetVenueBookings({ venueId }) {
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    console.error('API Error Response:', errorData);
                     throw new Error('Failed to fetch venue bookings');
                 }
 
                 const data = await response.json();
-                console.log('API Response for venue', venueId, ':', data);
                 const bookings = data.data.bookings || [];
-                console.log('Number of bookings found:', bookings.length);
                 setBookingCount(bookings.length);
             } catch (err) {
-                console.error('Error fetching venue bookings:', err);
                 setError(err.message);
             } finally {
                 setLoading(false);
