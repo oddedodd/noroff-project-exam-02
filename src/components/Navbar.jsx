@@ -65,7 +65,7 @@ function Navbar() {
           {user ? (
             <>
               <Link to="/profile" className="block text-cocoa hover:text-coral uppercase text-center">
-                {user.name}
+                My Profile
               </Link>
               <button 
                 onClick={logout}
