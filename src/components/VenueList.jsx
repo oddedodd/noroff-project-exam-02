@@ -1,6 +1,7 @@
 // src/components/VenueList.jsx
 import { useEffect, useState } from 'react';
 import DisplayVenueCard from './DisplayVenueCard';
+import { getVenues, searchVenues } from '../api';
 
 function VenueList({ searchTerm }) {
   const [venues, setVenues] = useState([]);
@@ -12,13 +13,11 @@ function VenueList({ searchTerm }) {
     async function fetchVenues() {
       try {
         setLoading(true);
-        const url = searchTerm
-          ? `https://v2.api.noroff.dev/holidaze/venues/search?q=${encodeURIComponent(searchTerm)}`
-          : 'https://v2.api.noroff.dev/holidaze/venues/?sort=created';
+        const data = searchTerm
+          ? await searchVenues(searchTerm)
+          : await getVenues({ sort: 'created' });
         
-        const response = await fetch(url);
-        const json = await response.json();
-        setVenues(json.data);
+        setVenues(data.data);
         setDisplayCount(9); // Reset display count when search changes
       } catch (error) {
         console.error('Error fetching venues:', error);
