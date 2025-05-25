@@ -14,7 +14,8 @@ function Profile() {
 
     return (
         <>
-            <title>{user.name} - Holidaze user profile</title>
+            <title>{user.name + ' - Holidaze user profile'}</title>
+            <meta name="description" content={user.bio + ' update your profile, reservations and venues' || 'Holidaze user profile'} />
             <div className="min-h-screen bg-sand p-4 rounded-lg mx-auto">
                 <ProfileInfo user={user} />
                 {user.venueManager && <ViewMyVenues user={user} />}

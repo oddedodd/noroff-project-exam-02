@@ -23,6 +23,7 @@ function AddVenue() {
     return (
         <div className="min-h-screen bg-sand px-4 py-10">
             <title>Add Venue</title>
+            <meta name="description" content="Add a venue to the Holidaze platform" />
             <AddVenueForm user={user} />
         </div>
     );

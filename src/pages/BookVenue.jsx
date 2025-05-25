@@ -154,7 +154,7 @@ function BookVenue() {
 
   return (
     <div className="bg-sand-light">
-      <title>{venue.name}</title>
+      <title>{venue.name + ' - Book this venue'}</title>
       <meta name="description" content={venue.description} />
       <VenueHero 
         name={venue.name}
