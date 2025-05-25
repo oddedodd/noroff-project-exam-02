@@ -4,7 +4,7 @@ import VenueHero from './VenueHero';
 import VenueDescription from './VenueDescription';
 import VenueGallery from './VenueGallery';
 import VenueSidebar from './VenueSidebar';
-import ViewVenueBookings from './ViewVenueBookings';
+import VenueRating from './VenueRating';
 import { Wifi, ParkingCircle, Utensils, Dog } from 'lucide-react';
 
 /**
@@ -106,6 +106,7 @@ function DisplayVenue() {
       <div className="min-h-screen max-w-7xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div className="md:col-span-2 space-y-6">
           <VenueDescription text={venue.description} />
+          <VenueRating rating={venue.rating} />
           <VenueGallery 
             images={venue.media?.map(image => ({
               url: image.url,
