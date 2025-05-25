@@ -94,6 +94,8 @@ function DisplayVenue() {
 
   return (
     <div className="bg-sand-light text-cocoa-dark">
+      <title>{venue.name}</title>
+      <meta name="description" content={venue.description.substring(0, 50) + "..."} />
       <VenueHero 
         name={venue.name} 
         location={`${venue.location.city}, ${venue.location.country}`} 

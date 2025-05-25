@@ -22,6 +22,7 @@ function AddVenue() {
 
     return (
         <div className="min-h-screen bg-sand px-4 py-10">
+            <title>Add Venue</title>
             <AddVenueForm user={user} />
         </div>
     );
