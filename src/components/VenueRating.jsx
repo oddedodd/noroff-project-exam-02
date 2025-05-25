@@ -1,7 +1,7 @@
 import { Star } from 'lucide-react';
 
 /**
- * Component for displaying venue rating with stars
+ * Component for displaying venue rating
  * @component
  * @param {Object} props
  * @param {number|null} props.rating - The rating value to display (0-5)
