@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Trash2, Edit2 } from 'lucide-react';
 import GetVenueBookings from './GetVenueBookings';
 import EditVenue from './EditVenue';
+import { getUserVenues, deleteVenue } from '../api';
 
 /**
  * Component for displaying venues created by the user
@@ -25,19 +26,7 @@ function ViewMyVenues({ user }) {
 
             try {
                 setLoading(true);
-                const token = localStorage.getItem('accessToken');
-                const response = await fetch(`https://v2.api.noroff.dev/holidaze/profiles/${user.name}/venues`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch venues');
-                }
-
-                const data = await response.json();
+                const data = await getUserVenues(user.name);
                 setVenues(data.data);
             } catch (err) {
                 setError(err.message);
@@ -85,19 +74,7 @@ function ViewMyVenues({ user }) {
     const handleDeleteVenue = async (venueId) => {  
         if (window.confirm('Are you sure you want to delete this venue?')) { /* should be a modal – will fix if I get the time */
             try {
-                const token = localStorage.getItem('accessToken');
-                const response = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${venueId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to delete venue');
-                }
-
+                await deleteVenue(venueId);
                 // Remove venue from state to update UI
                 setVenues(venues.filter(v => v.id !== venueId));
             } catch (err) {

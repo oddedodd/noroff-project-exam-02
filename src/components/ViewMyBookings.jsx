@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Trash2 } from 'lucide-react';
+import { getUserBookings, deleteBooking } from '../api';
 
 /**
  * Component for displaying a user's bookings/reservations
@@ -22,19 +23,7 @@ function ViewMyBookings({ user }) {
 
             try {
                 setLoading(true);
-                const token = localStorage.getItem('accessToken');
-                const response = await fetch(`https://v2.api.noroff.dev/holidaze/profiles/${user.name}/bookings?_venue=true`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch bookings');
-                }
-
-                const data = await response.json();
+                const data = await getUserBookings(user.name);
                 setBookings(data.data);
             } catch (err) {
                 setError(err.message);
@@ -58,19 +47,7 @@ function ViewMyBookings({ user }) {
 
         try {
             setDeletingBookingId(bookingId);
-            const token = localStorage.getItem('accessToken');
-            const response = await fetch(`https://v2.api.noroff.dev/holidaze/bookings/${bookingId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to delete booking');
-            }
-
+            await deleteBooking(bookingId);
             // Remove the booking from the local state
             setBookings(prevBookings => prevBookings.filter(booking => booking.id !== bookingId));
         } catch (err) {
@@ -104,7 +81,7 @@ function ViewMyBookings({ user }) {
 
     if (bookings.length === 0) {
         return (
-            <section className="bg-[#fefaf1] px-4 py-10">
+            <section className="bg-sand px-4 py-10">
                 <div className="max-w-5xl mx-auto">
                 <h2 className="text-xl text-cocoa-dark font-[dm_sans] font-bold uppercase mb-6">My reservations</h2>
                     <div className="text-center text-cocoa font-[nunito]">No bookings found. Start exploring venues to make your first reservation!</div>
