@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Trash2, Edit2 } from 'lucide-react';
 import GetVenueBookings from './GetVenueBookings';
+import EditVenue from './EditVenue';
 
 /**
  * Component for displaying venues created by the user
@@ -11,6 +13,7 @@ function ViewMyVenues({ user }) {
     const [venues, setVenues] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [editingVenue, setEditingVenue] = useState(null);
 
     useEffect(() => {
         /**
@@ -79,6 +82,36 @@ function ViewMyVenues({ user }) {
         );
     }
 
+    const handleDeleteVenue = async (venueId) => {  
+        if (window.confirm('Are you sure you want to delete this venue?')) { /* should be a modal – will fix if I get the time */
+            try {
+                const token = localStorage.getItem('accessToken');
+                const response = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${venueId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete venue');
+                }
+
+                // Remove venue from state to update UI
+                setVenues(venues.filter(v => v.id !== venueId));
+            } catch (err) {
+                setError(err.message);
+            }
+        }
+    };
+
+    const handleVenueUpdate = (updatedVenue) => {
+        setVenues(venues.map(venue => 
+            venue.id === updatedVenue.id ? updatedVenue : venue
+        ));
+    };
+
     return (
         <section className="bg-sand px-4 pt-10">
             <div className="max-w-5xl mx-auto bg-sand-light p-4 pb-10 rounded-lg">
@@ -112,11 +145,35 @@ function ViewMyVenues({ user }) {
                                         <p className="font-semibold font-[nunito] text-sm text-center text-cocoa-dark">This venue has:</p>
                                         <GetVenueBookings venueId={venue.id} />
                                     </div>
+                                    <div className="flex flex-col gap-2 mt-4">
+                                        <button
+                                            onClick={() => setEditingVenue(venue)}
+                                            className="w-full bg-amber-dark hover:bg-amber text-sand font-[nunito] text-sm py-2 px-4 rounded transition-colors flex items-center justify-center hover:cursor-pointer"
+                                        >
+                                            <Edit2 className="w-4 h-4 mr-2" />
+                                            <span>Edit Venue</span>
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteVenue(venue.id)}
+                                            className="w-full bg-coral hover:bg-coral-dark text-sand font-[nunito] text-sm py-2 px-4 rounded transition-colors flex items-center justify-center hover:cursor-pointer"
+                                        >
+                                            <Trash2 className="w-4 h-4 mr-2" />
+                                            <span>Delete Venue</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
+
+                {editingVenue && (
+                    <EditVenue
+                        venue={editingVenue}
+                        onClose={() => setEditingVenue(null)}
+                        onUpdate={handleVenueUpdate}
+                    />
+                )}
             </div>
         </section>
     );

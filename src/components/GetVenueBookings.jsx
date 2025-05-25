@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ViewVenueBookings from './ViewVenueBookings';
 
 /**
  * Component for displaying the number of bookings for a specific venue
@@ -10,6 +11,9 @@ import { useState, useEffect } from 'react';
 function GetVenueBookings({ venueId }) {
     /** @type {[number, Function]} State for storing the number of bookings */
     const [bookingCount, setBookingCount] = useState(0);
+    
+    /** @type {[Array, Function]} State for storing the bookings data */
+    const [bookings, setBookings] = useState([]);
     
     /** @type {[boolean, Function]} State for tracking loading status */
     const [loading, setLoading] = useState(true);
@@ -49,8 +53,9 @@ function GetVenueBookings({ venueId }) {
                 }
 
                 const data = await response.json();
-                const bookings = data.data.bookings || [];
-                setBookingCount(bookings.length);
+                const bookingsData = data.data.bookings || [];
+                setBookings(bookingsData);
+                setBookingCount(bookingsData.length);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -70,9 +75,14 @@ function GetVenueBookings({ venueId }) {
     }
 
     return (
-        <span className="text-cocoa-dark font-[nunito] font-medium">
-            {bookingCount} booking{bookingCount !== 1 ? 's' : ''}
-        </span>
+        <div className="flex flex-col gap-3">
+            <span className="text-cocoa-dark font-[nunito] font-medium">
+                {bookingCount} booking{bookingCount !== 1 ? 's' : ''}
+            </span>
+            {bookingCount > 0 && (
+                <ViewVenueBookings bookings={bookings} />
+            )}
+        </div>
     );
 }
 

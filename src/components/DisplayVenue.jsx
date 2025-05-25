@@ -4,6 +4,7 @@ import VenueHero from './VenueHero';
 import VenueDescription from './VenueDescription';
 import VenueGallery from './VenueGallery';
 import VenueSidebar from './VenueSidebar';
+import ViewVenueBookings from './ViewVenueBookings';
 import { Wifi, ParkingCircle, Utensils, Dog } from 'lucide-react';
 
 /**
@@ -94,6 +95,8 @@ function DisplayVenue() {
 
   return (
     <div className="bg-sand-light text-cocoa-dark">
+      <title>{venue.name}</title>
+      <meta name="description" content={venue.description.substring(0, 50) + "..."} />
       <VenueHero 
         name={venue.name} 
         location={`${venue.location.city}, ${venue.location.country}`} 
@@ -110,14 +113,21 @@ function DisplayVenue() {
             })) || []} 
           />
         </div>
-        <VenueSidebar 
-          amenities={amenities}
-          price={venue.price}
-          maxGuests={venue.maxGuests}
-          rating={venue.rating}
-          venueId={venue.id}
-          bookings={venue.bookings || []}
-        />
+        <div className="space-y-6">
+          <VenueSidebar 
+            amenities={amenities}
+            price={venue.price}
+            maxGuests={venue.maxGuests}
+            rating={venue.rating}
+            venueId={venue.id}
+            bookings={venue.bookings || []}
+          />
+          {venue.bookings && venue.bookings.length > 0 && (
+            <div className="bg-sand p-4 rounded-lg">
+              <ViewVenueBookings bookings={venue.bookings} />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
