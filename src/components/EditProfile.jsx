@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { updateUserProfile } from '../api';
 
 /**
  * Modal component for editing user profile information
@@ -33,27 +34,13 @@ function EditProfile({ user, onClose, onUpdate }) {
         setIsSubmitting(true);
 
         try {
-            const token = localStorage.getItem('accessToken');
-            const response = await fetch(`https://v2.api.noroff.dev/holidaze/profiles/${user.name}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                    'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-                },
-                body: JSON.stringify({
-                    bio: formData.bio,
-                    avatar: { url: formData.avatar },
-                    banner: { url: formData.banner }
-                })
-            });
+            const profileData = {
+                bio: formData.bio,
+                avatar: { url: formData.avatar },
+                banner: { url: formData.banner }
+            };
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.errors?.[0]?.message || 'Failed to update profile');
-            }
-
-            const data = await response.json();
+            const data = await updateUserProfile(user.name, profileData);
             onUpdate(data.data);
             onClose();
         } catch (err) {

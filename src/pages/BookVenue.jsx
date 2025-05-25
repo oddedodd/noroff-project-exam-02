@@ -4,6 +4,7 @@ import VenueHero from "../components/VenueHero";
 import BookingForm from "../components/BookingForm";
 import BookingSidebar from "../components/BookingSidebar";
 import { useRequireAuth } from "../hooks/useRequireAuth";
+import { getVenue, createBooking } from "../api";
 
 /**
  * Booking page component for venue reservations
@@ -45,14 +46,8 @@ function BookVenue() {
     async function fetchVenue() {
       try {
         setLoading(true);
-        const response = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${id}`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch venue');
-        }
-
-        const json = await response.json();
-        setVenue(json.data);
+        const data = await getVenue(id);
+        setVenue(data.data);
       } catch (error) {
         setError(error.message);
         console.error('Error fetching venue:', error);
@@ -82,27 +77,14 @@ function BookVenue() {
         return;
       }
 
-      const response = await fetch('https://v2.api.noroff.dev/holidaze/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-        },
-        body: JSON.stringify({
-          dateFrom: bookingData.dateFrom,
-          dateTo: bookingData.dateTo,
-          guests: bookingData.guests,
-          venueId: venue.id
-        })
-      });
+      const bookingPayload = {
+        dateFrom: bookingData.dateFrom,
+        dateTo: bookingData.dateTo,
+        guests: bookingData.guests,
+        venueId: venue.id
+      };
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.errors?.[0]?.message || 'Failed to create booking');
-      }
-
-      const data = await response.json();
+      const data = await createBooking(bookingPayload);
       // Navigate to profile page after successful booking
       navigate('/profile');
     } catch (error) {

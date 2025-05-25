@@ -1,5 +1,13 @@
+/**
+ * Form component for adding a new venue
+ * @component
+ * @param {Object} props
+ * @param {Object} props.user - The current user object
+ * @returns {JSX.Element} AddVenueForm component
+ */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createVenue } from '../api';
 
 export default function AddVenueForm( { user } ) {
   const navigate = useNavigate();
@@ -28,6 +36,10 @@ export default function AddVenueForm( { user } ) {
     },
   });
 
+  /**
+   * Handles changes to form input fields
+   * @param {Object} e - Event object
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name in form.location) {
@@ -40,6 +52,10 @@ export default function AddVenueForm( { user } ) {
     }
   };
 
+  /**
+   * Handles changes to checkbox inputs
+   * @param {Object} e - Event object
+   */
   const handleCheckbox = (e) => {
     const { name, checked } = e.target;
     setForm((prev) => ({
@@ -48,13 +64,17 @@ export default function AddVenueForm( { user } ) {
     }));
   };
 
+  /**
+   * Handles form submission
+   * @param {Object} e - Event object
+   * @returns {Promise<void>}
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setIsSubmitting(true);
 
     try {
-      const token = localStorage.getItem('accessToken');
       // Format the data according to API requirements
       const venueData = {
         name: form.name,
@@ -73,22 +93,7 @@ export default function AddVenueForm( { user } ) {
         }
       };
 
-      const response = await fetch('https://v2.api.noroff.dev/holidaze/venues', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-        },
-        body: JSON.stringify(venueData)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.errors?.[0]?.message || 'Failed to create venue');
-      }
-
-      const data = await response.json();
+      const data = await createVenue(venueData);
       console.log('Venue created successfully:', data);
       navigate('/profile'); // Redirect to profile page after successful creation
     } catch (err) {

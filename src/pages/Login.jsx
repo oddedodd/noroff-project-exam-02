@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import { useAuthState } from '../hooks/useAuthState';
+import { loginUser } from '../api';
 
 /**
  * Login component that provides user authentication functionality
@@ -22,19 +23,7 @@ function Login() {
    */
   async function handleLoginSubmit({ email, password }) {
     try {
-      const response = await fetch('https://v2.api.noroff.dev/auth/login?_holidaze=true', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.errors?.[0]?.message || 'Login failed');
-      }
+      const data = await loginUser({ email, password });
 
       // Store the access token and user data
       localStorage.setItem('accessToken', data.data.accessToken);

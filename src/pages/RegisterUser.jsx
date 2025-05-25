@@ -1,11 +1,27 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterUserForm from '../components/RegisterUserForm';
+import { registerUser } from '../api';
 
+/**
+ * RegisterUser component that handles user registration functionality
+ * @component
+ * @returns {JSX.Element} The rendered RegisterUser page
+ */
 function RegisterUser() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  /**
+   * Handles the registration form submission
+   * @async
+   * @param {Object} formData - The registration form data
+   * @param {string} formData.name - User's username
+   * @param {string} formData.email - User's email address
+   * @param {string} formData.password - User's password
+   * @param {boolean} formData.venueManager - Whether user is a venue manager
+   * @param {string} [formData.bio] - User's optional biography
+   */
   async function handleRegisterSubmit(formData) {
     try {
       // Clean up the form data by removing empty optional fields
@@ -16,31 +32,16 @@ function RegisterUser() {
         venueManager: formData.venueManager
       };
 
-      // Only add bio if it has a value
       if (formData.bio) cleanedData.bio = formData.bio;
 
-      const response = await fetch('https://v2.api.noroff.dev/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-        },
-        body: JSON.stringify(cleanedData),
-      });
+      const data = await registerUser(cleanedData);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.errors?.[0]?.message || 'Registration failed');
-      }
-
-      // Store the access token and user data
       localStorage.setItem('accessToken', data.data.accessToken);
       localStorage.setItem('user', JSON.stringify(data.data));
 
-      // Redirect to profile page
-    //   navigate('/profile');
-    console.log('Registration successful');
+      // Redirect to login page after successful registration
+      navigate('/login');
+      console.log('Registration successful');
     } catch (err) {
       setError(err.message);
     }

@@ -6,6 +6,7 @@ import VenueGallery from './VenueGallery';
 import VenueSidebar from './VenueSidebar';
 import VenueRating from './VenueRating';
 import { Wifi, ParkingCircle, Utensils, Dog } from 'lucide-react';
+import { getVenue } from '../api';
 
 /**
  * Component for displaying detailed information about a venue
@@ -38,14 +39,8 @@ function DisplayVenue() {
     async function fetchVenue() {
       try {
         setLoading(true);
-        const response = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${id}?_bookings=true`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch venue');
-        }
-
-        const json = await response.json();
-        setVenue(json.data);
+        const data = await getVenue(id);
+        setVenue(data.data);
       } catch (error) {
         setError(error.message);
         console.error('Error fetching venue:', error);

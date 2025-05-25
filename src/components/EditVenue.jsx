@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, ChevronDown, ChevronUp } from 'lucide-react';
+import { updateVenue } from '../api';
 
 /**
  * Collapsible section component for form fields
@@ -132,32 +133,18 @@ function EditVenue({ venue, onClose, onUpdate }) {
         setIsSubmitting(true);
 
         try {
-            const token = localStorage.getItem('accessToken');
-            const response = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${venue.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                    'X-Noroff-API-Key': import.meta.env.VITE_API_KEY
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    description: formData.description,
-                    media: formData.media.filter(m => m.url.trim() !== ''),
-                    price: Number(formData.price),
-                    maxGuests: Number(formData.maxGuests),
-                    rating: Number(formData.rating),
-                    meta: formData.meta,
-                    location: formData.location
-                })
-            });
+            const venueData = {
+                name: formData.name,
+                description: formData.description,
+                media: formData.media.filter(m => m.url.trim() !== ''),
+                price: Number(formData.price),
+                maxGuests: Number(formData.maxGuests),
+                rating: Number(formData.rating),
+                meta: formData.meta,
+                location: formData.location
+            };
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.errors?.[0]?.message || 'Failed to update venue');
-            }
-
-            const data = await response.json();
+            const data = await updateVenue(venue.id, venueData);
             onUpdate(data.data);
             onClose();
         } catch (err) {
