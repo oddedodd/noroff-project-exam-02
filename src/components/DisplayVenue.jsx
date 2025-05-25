@@ -122,11 +122,6 @@ function DisplayVenue() {
             venueId={venue.id}
             bookings={venue.bookings || []}
           />
-          {venue.bookings && venue.bookings.length > 0 && (
-            <div className="bg-sand p-4 rounded-lg">
-              <ViewVenueBookings bookings={venue.bookings} />
-            </div>
-          )}
         </div>
       </div>
     </div>

@@ -27,8 +27,6 @@ function Navbar() {
         {/* Desktop nav */}
         <div className="hidden md:flex space-x-6 items-center font-[nunito] text-lg ">
           <Link to="/" className="text-cocoa hover:text-coral uppercase">Home</Link>
-          <a href="#" className="text-cocoa hover:text-coral uppercase">Venues</a>
-          <a href="#" className="text-cocoa hover:text-coral uppercase">Contact</a>
           {user ? (
             <>
               <Link to="/profile" className="text-cocoa hover:text-coral uppercase">
@@ -59,9 +57,7 @@ function Navbar() {
       {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden mt-2 space-y-4 px-4 text-center">
-          <a href="#" className="block text-cocoa hover:text-coral uppercase text-center">Home</a>
-          <a href="#" className="block text-cocoa hover:text-coral uppercase text-center">Venues</a>
-          <a href="#" className="block text-cocoa hover:text-coral uppercase text-center">Contact</a>
+          <Link to="/" className="block text-cocoa hover:text-coral uppercase text-center">Home</Link>
           {user ? (
             <>
               <Link to="/profile" className="block text-cocoa hover:text-coral uppercase text-center">
@@ -69,7 +65,7 @@ function Navbar() {
               </Link>
               <button 
                 onClick={logout}
-                className="w-full bg-coral hover:bg-coral-dark hover:cursor-pointer text-sand-light uppercase px-6 py-2 rounded-full font-medium"
+                className="w-full bg-teal-dark hover:bg-coral-dark hover:cursor-pointer text-sand-light uppercase px-6 py-2 rounded-full font-medium"
               >
                 Sign Out
               </button>
