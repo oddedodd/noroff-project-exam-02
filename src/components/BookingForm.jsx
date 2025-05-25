@@ -62,10 +62,10 @@ function BookingForm({ venue, onSubmit, onChange }) {
   };
 
   return (
-    <div className="md:col-span-2 bg-white rounded p-6 shadow">
-      <h2 className="text-xl font-semibold mb-4 font-[dm_sans]">Book your stay</h2>
-      <p className="text-md font-medium mb-6 font-[nunito]">
-        <span className="font-bold">{venue.name}</span>, {venue.location.city}, {venue.location.country}
+    <div className="md:col-span-2 bg-sand-light rounded p-6">
+      <h2 className="text-xl text-cocoa-dark font-semibold mb-4 font-[dm_sans]">Book your stay</h2>
+      <p className="text-md text-cocoafont-medium mb-6 font-[nunito]">
+        <span className="font-bold text-cocoa-darl">{venue.name}</span>, {venue.location.city}, {venue.location.country}
       </p>
 
       {error && (
@@ -76,10 +76,10 @@ function BookingForm({ venue, onSubmit, onChange }) {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-medium text-sm mb-1 font-[nunito]">CHECK-IN</label>
+          <label className="block font-medium text-sm text-cocoa mb-1 font-[nunito]">Check-in</label>
           <input
             type="date"
-            className="w-full border border-gray-400 rounded px-3 py-2 font-[nunito]"
+            className="w-full border border-cocoa-dark rounded px-3 py-2 font-[nunito]"
             value={checkIn}
             onChange={(e) => setCheckIn(e.target.value)}
             min={new Date().toISOString().split('T')[0]}
@@ -87,10 +87,10 @@ function BookingForm({ venue, onSubmit, onChange }) {
         </div>
 
         <div>
-          <label className="block font-medium text-sm mb-1 font-[nunito]">CHECK-OUT</label>
+          <label className="block font-medium text-sm text-cocoa mb-1 font-[nunito]">Check-out</label>
           <input
             type="date"
-            className="w-full border border-gray-400 rounded px-3 py-2 font-[nunito]"
+            className="w-full border border-cocoa-dark rounded px-3 py-2 font-[nunito]"
             value={checkOut}
             onChange={(e) => setCheckOut(e.target.value)}
             min={checkIn || new Date().toISOString().split('T')[0]}
@@ -98,9 +98,9 @@ function BookingForm({ venue, onSubmit, onChange }) {
         </div>
 
         <div>
-          <label className="block font-medium text-sm mb-1 font-[nunito]">GUESTS</label>
+          <label className="block font-medium text-sm text-cocoa mb-1 font-[nunito]">Guests</label>
           <select
-            className="w-full border border-gray-400 rounded px-3 py-2 font-[nunito]"
+            className="w-full border border-cocoa-dark rounded px-3 py-2 font-[nunito]"
             value={guests}
             onChange={(e) => setGuests(e.target.value)}
           >
@@ -112,7 +112,7 @@ function BookingForm({ venue, onSubmit, onChange }) {
 
         <button
           type="submit"
-          className="w-full bg-[#ef665b] hover:bg-[#e4534a] text-white font-semibold py-2 rounded mt-4 font-[nunito]"
+          className="w-full bg-[#ef665b] hover:bg-[#e4534a] hover:cursor-pointer text-sand-light font-semibold py-2 rounded mt-4 font-[nunito]"
         >
           BOOK NOW
         </button>

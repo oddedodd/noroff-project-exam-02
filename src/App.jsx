@@ -8,6 +8,7 @@ import Venue from "./pages/Venue";
 import BookVenue from "./pages/BookVenue";
 import AddVenue from "./pages/AddVenue";
 import ScrollToTop from "./components/ScrollToTop";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/venue/:id/book" element={<BookVenue />} />
         <Route path="/venue/add" element={<AddVenue />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

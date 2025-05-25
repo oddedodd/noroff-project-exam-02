@@ -19,31 +19,31 @@ function BookingSidebar({ venue, bookingData }) {
   };
 
   return (
-    <div className="bg-white rounded p-6 shadow space-y-4">
-      <h3 className="text-lg font-semibold font-[dm_sans]">Booking Summary</h3>
+    <div className="bg-sand-light rounded p-6 space-y-4">
+      <h3 className="text-lg text-cocoa font-semibold font-[dm_sans]">Booking Summary</h3>
       
       <div className="space-y-2">
         <p className="text-md font-medium font-[nunito]">Price per night: {venue.price} kr</p>
-        <p className="text-sm text-gray-600 font-[nunito]">Maximum guests: {venue.maxGuests}</p>
+        <p className="text-sm text-cocoa font-[nunito]">Maximum guests: {venue.maxGuests}</p>
         {venue.rating && (
-          <p className="text-sm text-gray-600 font-[nunito]">Rating: {venue.rating}/5</p>
+          <p className="text-sm text-cocoa font-[nunito]">Rating: {venue.rating}/5</p>
         )}
       </div>
 
       {checkIn && checkOut && (
         <div className="space-y-2 pt-2">
           <hr />
-          <p className="text-sm font-medium font-[nunito]">Selected dates:</p>
-          <p className="text-sm text-gray-600 font-[nunito]">
+          <p className="text-sm text-cocoa font-medium font-[nunito]">Selected dates:</p>
+          <p className="text-sm text-cocoa font-[nunito]">
             From: {formatDate(checkIn)}
           </p>
-          <p className="text-sm text-gray-600 font-[nunito]">
+          <p className="text-sm text-cocoa font-[nunito]">
             To: {formatDate(checkOut)}
           </p>
-          <p className="text-sm text-gray-600 font-[nunito]">
+          <p className="text-sm text-cocoa font-[nunito]">
             {nights} {nights === 1 ? 'night' : 'nights'}
           </p>
-          <p className="text-sm text-gray-600 font-[nunito]">
+          <p className="text-sm text-cocoa font-[nunito]">
             {guests} {guests === 1 ? 'guest' : 'guests'}
           </p>
           {totalPrice > 0 && (
@@ -57,7 +57,7 @@ function BookingSidebar({ venue, bookingData }) {
       )}
 
       {(!checkIn || !checkOut) && (
-        <p className="text-sm text-gray-600 font-[nunito] pt-2">
+        <p className="text-sm text-cocoa font-[nunito] pt-2">
           Please select dates in the booking form to see the total price
         </p>
       )}

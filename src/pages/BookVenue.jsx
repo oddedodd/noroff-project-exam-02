@@ -162,7 +162,7 @@ function BookVenue() {
         image={venue.media?.[0]?.url || 'https://placehold.co/600x400'}
       />
 
-      <section className="py-12 px-4">
+      <section className="py-12 px-4 bg-sand">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <BookingForm 
