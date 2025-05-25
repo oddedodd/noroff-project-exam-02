@@ -14,7 +14,7 @@ function VenueList({ searchTerm }) {
         setLoading(true);
         const url = searchTerm
           ? `https://v2.api.noroff.dev/holidaze/venues/search?q=${encodeURIComponent(searchTerm)}`
-          : 'https://v2.api.noroff.dev/holidaze/venues/';
+          : 'https://v2.api.noroff.dev/holidaze/venues/?sort=created';
         
         const response = await fetch(url);
         const json = await response.json();
